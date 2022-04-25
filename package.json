@@ -1,0 +1,11 @@
+{
+  "name": "apple-device-images",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/emiyl/apple-device-images",
+  "author": "emiyl <me@emiyl.com>",
+  "license": "MIT",
+  "dependencies": {
+    "sharp": "^0.30.4"
+  }
+}
