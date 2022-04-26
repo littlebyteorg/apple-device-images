@@ -23,7 +23,7 @@ function getPngs(p) {
     const recursePath = path.join(dirPath, x)
     
     if (x.endsWith('.png')) return {
-      identifier: x.split('.')[0],
+      identifier: path.basename(x,'.png'),
       imageArr: false
     }
     else if (fs.statSync(recursePath).isDirectory()) return {
