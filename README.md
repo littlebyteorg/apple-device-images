@@ -18,6 +18,8 @@ In the future I will publish a JSON with the site which lists which devices have
 
 ![Medium resolution image of a Space Grey MacBook Air, Late 2020](https://img.appledb.dev/device@512/MacBookAir10,1/0.png)
 
+---
+
 `https://img.appledb.dev/device@256/iPhone14,2/3_dark.png`
 
 256x517, Sierra Blue, dark mode
