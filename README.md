@@ -8,7 +8,7 @@ Replace `deviceIdentifier1,1` with the device you want an image of, e.g. `iPhone
 To get an image with dark mode, append `_dark` to the filename: `/0_dark.png`  
 To get a different colour, increment the number of the filename: `/1.png`
 
-In the future I will publish a JSON with the site which lists which devices have dark mode, and how many colours each device has. For you will just have to look.
+In the future I will publish a JSON with the site which lists which devices have dark mode, and how many colours each device has. For now you will just have to look.
 
 ## Example images
 
