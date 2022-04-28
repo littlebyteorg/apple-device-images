@@ -34,37 +34,6 @@ function getPngs(p) {
   return dirArr
 }
 
-/*function getPngs(p, recursive = false, identifier = undefined) {
-  const dirArr = fs.readdirSync(p, function (err, files) {
-    var retArr = []
-    files.forEach(f => retArr.push(f))
-
-    return retArr
-  }).map(x => {
-    if (x.endsWith('png')) {
-      identifier = (identifier && recursive) ? identifier : x.split('.')[0]
-      return {
-        identifier: identifier,
-        image: x
-      }
-    }
-    const recursePath = path.join(dirPath, x)
-    if (fs.statSync(recursePath).isDirectory()) return getPngs(recursePath, true, x)
-    return undefined
-  }).filter(x => x)
-
-  var retArr = {}
-  console.log(dirArr)
-  /*for (const d of dirArr) {
-    if (retArr.hasOwnProperty(d.identifier)) retArr[d.identifier].imageArr.push(d.image)
-    else retArr[d.identifier] = {
-      imageArr: [d.image]
-    }
-  }*/
-
-  /*return retArr
-}*/
-
 function mkDir(p) { if (!fs.existsSync(p)) fs.mkdirSync(p) }
 
 const dirArr = getPngs(dirPath)
@@ -88,14 +57,22 @@ async function createPng(img, res, dir) {
       const fileName = path.basename(inputPath)
 
       await sharp(inputPath)
-        .resize(res)
+        .resize({
+          width: res,
+          height: res,
+          fit: sharp.fit.inside
+        })
         .toFile(path.join(outDir, fileName))
     } else {
       const inputPath = path.join(dir, img.identifier + '.png')
       const fileName = '0.png'
 
       await sharp(inputPath)
-        .resize(res)
+        .resize({
+          width: res,
+          height: res,
+          fit: sharp.fit.inside
+        })
         .toFile(path.join(outDir, fileName))
     }
     
