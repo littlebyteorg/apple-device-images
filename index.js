@@ -3,7 +3,7 @@ const fs = require('fs')
 const sharp = require("sharp")
 const { create } = require('domain')
 
-const resizeArr = [128,256,512,1024]
+const resizeArr = [128,256,512,1024,'preview','main']
 
 const imgPath = path.resolve(__dirname, 'out')
 const dirPath = path.resolve(__dirname, "images")
@@ -50,6 +50,15 @@ async function createPng(img, res, dir) {
       )
     )
 
+    let options = {
+      width: res,
+      height: res,
+      fit: sharp.fit.inside
+    }
+
+    if (res == 'preview') options = { height: 128 }
+    else if (res == 'main') options = { height: 176 }
+
     const outDir = path.join(...outDirArr)
 
     if (img.imageArr) for (const i of img.imageArr) {
@@ -57,22 +66,14 @@ async function createPng(img, res, dir) {
       const fileName = path.basename(inputPath)
 
       await sharp(inputPath)
-        .resize({
-          width: res,
-          height: res,
-          fit: sharp.fit.inside
-        })
+        .resize(options)
         .toFile(path.join(outDir, fileName))
     } else {
       const inputPath = path.join(dir, img.identifier + '.png')
       const fileName = '0.png'
 
       await sharp(inputPath)
-        .resize({
-          width: res,
-          height: res,
-          fit: sharp.fit.inside
-        })
+        .resize(options)
         .toFile(path.join(outDir, fileName))
     }
     
