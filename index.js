@@ -56,8 +56,8 @@ async function createPng(img, res, dir) {
       fit: sharp.fit.inside
     }
 
-    if (res == 'preview') options = { height: 128 }
-    else if (res == 'main') options = { height: 176 }
+    if (res == 'preview') options = { height: 256 }
+    else if (res == 'main') options = { height: 352 }
 
     const outDir = path.join(...outDirArr)
 
