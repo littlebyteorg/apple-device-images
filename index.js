@@ -3,7 +3,7 @@ const fs = require('fs')
 const sharp = require("sharp")
 const { create } = require('domain')
 
-const resizeArr = [256,512,1024]
+const resizeArr = [128,256,512,1024]
 
 const imgPath = path.resolve(__dirname, 'out')
 const dirPath = path.resolve(__dirname, "images")
