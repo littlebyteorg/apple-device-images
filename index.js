@@ -72,14 +72,14 @@ async function createImg(img, res, dir, outputFormat) {
 
     if (img.imageArr) for (const i of img.imageArr) {
       const inputPath = path.join(dir, img.identifier, i)
-      const fileName = path.basename(inputPath, '.png') + '.' + outputFormat
+      const outputPath = path.join(outDir, path.basename(inputPath, '.png') + '.' + outputFormat)
 
-      outputSharpImage(inputPath, options, path.join(outDir, fileName), outputFormat)
+      outputSharpImage(inputPath, options, outputPath, outputFormat)
     } else {
       const inputPath = path.join(dir, img.identifier + '.png')
-      const fileName = '0.' + outputFormat
+      const outputPath = path.join(outDir, '0.' + outputFormat)
 
-      outputSharpImage(inputPath, options, path.join(outDir, fileName), outputFormat)
+      outputSharpImage(inputPath, options, outputPath, outputFormat)
     }
   } catch (err) {
     console.log(img, err)
@@ -87,9 +87,7 @@ async function createImg(img, res, dir, outputFormat) {
   }
 }
 
-for (const res of resizeArr) {
-  for (const imgType of ['png','webp']) {
-    for (const img of dirArr) createImg(img, res, dirPath, imgType)
-    for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType)
-  }
+for (const res of resizeArr) for (const imgType of ['png','webp']) {
+  for (const img of dirArr) createImg(img, res, dirPath, imgType)
+  for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType)
 }
