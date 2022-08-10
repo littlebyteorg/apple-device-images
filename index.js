@@ -39,7 +39,7 @@ function mkDir(p) { if (!fs.existsSync(p)) fs.mkdirSync(p) }
 const dirArr = getPngs(dirPath)
 const lowResDirArr = getPngs(lowResDirPath).filter(x => !dirArr.map(y => y.identifier).includes(x.identifier))
 
-async function createPng(img, res, dir) {
+async function createImg(img, res, dir, outputFormat) {
   try {
     const outDirArr = [imgPath, `device@${res}`, img.identifier]
     for (const o in outDirArr) mkDir(
@@ -61,20 +61,42 @@ async function createPng(img, res, dir) {
 
     const outDir = path.join(...outDirArr)
 
+    function sharpPng(inputPath, options, outputPath) {
+      return new Promise((resolve, reject) => {
+        sharp(inputPath)
+          .resize(options)
+          .png()
+          .toFile(outputPath, (err, info) => {
+            if (err) reject(err)
+            else resolve(info)
+          })
+      })
+    }
+
+    function sharpWebp(inputPath, options, outputPath) {
+      return new Promise((resolve, reject) => {
+        sharp(inputPath)
+          .resize(options)
+          .webp()
+          .toFile(outputPath, (err, info) => {
+            if (err) reject(err)
+            else resolve(info)
+          })
+      })
+    }
+
     if (img.imageArr) for (const i of img.imageArr) {
       const inputPath = path.join(dir, img.identifier, i)
       const fileName = path.basename(inputPath)
 
-      await sharp(inputPath)
-        .resize(options)
-        .toFile(path.join(outDir, fileName))
+      if (outputFormat == 'png') await sharpPng(inputPath, options, path.join(outDir, fileName))
+      else if (outputFormat == 'webp') await sharpWebp(inputPath, options, path.join(outDir, fileName))
     } else {
       const inputPath = path.join(dir, img.identifier + '.png')
-      const fileName = '0.png'
+      const fileName = '0.' + outputFormat
 
-      await sharp(inputPath)
-        .resize(options)
-        .toFile(path.join(outDir, fileName))
+      if (outputFormat == 'png') await sharpPng(inputPath, options, path.join(outDir, fileName))
+      else if (outputFormat == 'webp') await sharpWebp(inputPath, options, path.join(outDir, fileName))
     }
     
   } catch (err) {
@@ -84,6 +106,8 @@ async function createPng(img, res, dir) {
 }
 
 for (const res of resizeArr) {
-  for (const img of dirArr) createPng(img, res, dirPath)
-  for (const img of lowResDirArr) createPng(img, res, lowResDirPath)
+  for (const imgType of ['png','webp']) {
+    for (const img of dirArr) createImg(img, res, dirPath, imgType)
+    for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType)
+  }
 }

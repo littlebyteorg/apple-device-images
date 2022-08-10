@@ -6,6 +6,6 @@
   "author": "emiyl <me@emiyl.com>",
   "license": "MIT",
   "dependencies": {
-    "sharp": "^0.30.4"
+    "sharp": "^0.30.7"
   }
 }
