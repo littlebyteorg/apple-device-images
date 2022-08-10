@@ -3,7 +3,7 @@ const fs = require('fs')
 const sharp = require("sharp")
 const { create } = require('domain')
 
-const resizeArr = [128,256,512,1024,'preview','main']
+const resizeArr = [128,256,512,1024,'main','preview']
 
 const imgPath = path.resolve(__dirname, 'out')
 const dirPath = path.resolve(__dirname, "images")
@@ -61,44 +61,26 @@ async function createImg(img, res, dir, outputFormat) {
 
     const outDir = path.join(...outDirArr)
 
-    function sharpPng(inputPath, options, outputPath) {
-      return new Promise((resolve, reject) => {
-        sharp(inputPath)
-          .resize(options)
-          .png()
-          .toFile(outputPath, (err, info) => {
-            if (err) reject(err)
-            else resolve(info)
-          })
-      })
-    }
-
-    function sharpWebp(inputPath, options, outputPath) {
-      return new Promise((resolve, reject) => {
-        sharp(inputPath)
-          .resize(options)
-          .webp()
-          .toFile(outputPath, (err, info) => {
-            if (err) reject(err)
-            else resolve(info)
-          })
+    function outputSharpImage(inputPath, options, outputPath, outputFormat) {
+      let img = sharp(inputPath).resize(options)
+      if (outputFormat == 'png') img.png()
+      else if (outputFormat == 'webp') img.webp()
+      .toFile(outputPath, (err,) => {
+        if (err) console.log(err)
       })
     }
 
     if (img.imageArr) for (const i of img.imageArr) {
       const inputPath = path.join(dir, img.identifier, i)
-      const fileName = path.basename(inputPath)
+      const fileName = path.basename(inputPath, '.png') + '.' + outputFormat
 
-      if (outputFormat == 'png') await sharpPng(inputPath, options, path.join(outDir, fileName))
-      else if (outputFormat == 'webp') await sharpWebp(inputPath, options, path.join(outDir, fileName))
+      outputSharpImage(inputPath, options, path.join(outDir, fileName), outputFormat)
     } else {
       const inputPath = path.join(dir, img.identifier + '.png')
       const fileName = '0.' + outputFormat
 
-      if (outputFormat == 'png') await sharpPng(inputPath, options, path.join(outDir, fileName))
-      else if (outputFormat == 'webp') await sharpWebp(inputPath, options, path.join(outDir, fileName))
+      outputSharpImage(inputPath, options, path.join(outDir, fileName), outputFormat)
     }
-    
   } catch (err) {
     console.log(img, err)
     process.exit()
