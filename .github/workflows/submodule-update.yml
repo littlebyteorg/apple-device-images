@@ -62,7 +62,7 @@ jobs:
           token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
 
       - name: Pull & update submodules recursively
-        run: ||
+        run: |
           git submodule update --init apple-device-images
           git submodule update --remote apple-device-images
       - name: Commit
