@@ -62,13 +62,13 @@ jobs:
           token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
 
       - name: Pull & update submodules recursively
-        run: |
-          git submodule update --init docs/.vuepress/json/appledb
-          git submodule update --remote docs/.vuepress/json/appledb
+        run: ||
+          git submodule update --init apple-device-images
+          git submodule update --remote apple-device-images
       - name: Commit
         run: |
           git config user.email "actions@github.com"
           git config user.name "GitHub Actions - update submodules"
           git add --all
-          git commit -m "Update AppleDB submodule" || echo "No changes to commit"
+          git commit -m "Update apple-device-images submodule" || echo "No changes to commit"
           git push
