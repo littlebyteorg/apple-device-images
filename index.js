@@ -66,7 +66,9 @@ async function createImg(img, res, dir, outputFormat) {
 
       if (outputFormat == 'png') img.png()
       else if (outputFormat == 'webp') img.webp()
-      else if (outputFormat == 'avif') img.avif()
+      else if (outputFormat == 'avif') img.avif({
+        quality: 70
+      })
 
       img.toFile(outputPath, (err,) => {
         if (err) console.log(err)
