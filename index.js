@@ -66,6 +66,7 @@ async function createImg(img, res, dir, outputFormat) {
 
       if (outputFormat == 'png') img.png()
       else if (outputFormat == 'webp') img.webp()
+      else if (outputFormat == 'avif') img.avif()
 
       img.toFile(outputPath, (err,) => {
         if (err) console.log(err)
@@ -89,7 +90,7 @@ async function createImg(img, res, dir, outputFormat) {
   }
 }
 
-for (const res of resizeArr) for (const imgType of ['png','webp']) {
+for (const res of resizeArr) for (const imgType of ['png','webp','avif']) {
   for (const img of dirArr) createImg(img, res, dirPath, imgType)
   for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType)
 }
