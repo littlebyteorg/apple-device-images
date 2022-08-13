@@ -63,9 +63,11 @@ async function createImg(img, res, dir, outputFormat) {
 
     function outputSharpImage(inputPath, options, outputPath, outputFormat) {
       let img = sharp(inputPath).resize(options)
+
       if (outputFormat == 'png') img.png()
       else if (outputFormat == 'webp') img.webp()
-      .toFile(outputPath, (err,) => {
+
+      img.toFile(outputPath, (err,) => {
         if (err) console.log(err)
       })
     }
