@@ -2,7 +2,95 @@
     {
         "color": "Black",
         "appleColor": [ 
-               "Midnight"
+               "Midnight",
+               "Space Black",
+               "Beats Black",
+               "Matte Black",
+               "Black & Red",
+               "Midnight Black"
+        ]
+    },
+    {
+        "color": "White",
+        "appleColor": [ 
+               "Moon",
+               "Starlight",
+               "Beats White",
+               "Ivory"
+        ]
+    },
+    {
+        "color": "Brown",
+        "appleColor": [ 
+               "Dune",
+               "Earth"
+        ]
+    },
+    {
+        "color": "Green",
+        "appleColor": [ 
+               "Alpine Green"
+        ]
+    },
+    {
+        "color": "Gold",
+        "appleColor": [ 
+               "color1"
+        ]
+    },
+    {
+        "color": "Blue",
+        "appleColor": [ 
+               "Sierra Blue",
+               "Sky Blue",
+               "Ocean Blue",
+               "Flame Blue",
+               "Navy"
+        ]
+    },
+    {
+        "color": "Silver/Gray",
+        "appleColor": [ 
+               "Graphite",
+               "Space Gray",
+               "Titanium",
+               "Sage Gray",
+               "Moon Gray",
+               "Smoke Gray",
+               "Shadow Gray"
+        ]
+    },
+    {
+        "color": "Pink",
+        "appleColor": [ 
+               "Rose Gold",
+               "Sunset Pink"
+        ]
+    },
+    {
+        "color": "Red",
+        "appleColor": [ 
+               "(PRODUCT)RED",
+               "Beats Red",
+               "Black & Red"
+        ]
+    },
+    {
+        "color": "Purple",
+        "appleColor": [ 
+               "Stone Purple"
+        ]
+    },
+    {
+        "color": "Yellow",
+        "appleColor": [ 
+               "Yuzu Yellow"
+        ]
+    },
+    {
+        "color": "Orange",
+        "appleColor": [ 
+               "color1"
         ]
     }
 ]
