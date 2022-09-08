@@ -27,7 +27,7 @@ jobs:
         Write-Host "::set-output name=docs_changed::$HasDiff"
 
   docs:
-    runs-on: M1
+    runs-on: ubuntu-latest
     needs: [ conditional_job_check_files ]
     if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
 
