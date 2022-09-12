@@ -29,7 +29,7 @@ jobs:
   docs:
     runs-on: M1
     needs: [ conditional_job_check_files ]
-    if: needs.conditional_job_check_files.outputs.docs_changed == 'False'
+    if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
 
     steps:
       - uses: actions/checkout@v2
