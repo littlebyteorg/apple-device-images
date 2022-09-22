@@ -9,6 +9,8 @@ const imgPath = path.resolve(__dirname, 'out')
 const dirPath = path.resolve(__dirname, "images")
 const lowResDirPath = path.resolve(__dirname, "images-lowres")
 
+const argDevices = process.argv.slice(2)
+
 function getDirContents(p) {
   return fs.readdirSync(p, function (err, files) {
     var retArr = []
@@ -18,30 +20,33 @@ function getDirContents(p) {
 }
 
 function getPngs(p) {
-  let identifier = undefined
+  let key = undefined
   const dirArr = getDirContents(p).map(x => {
     const recursePath = path.join(dirPath, x)
     
     if (x.endsWith('.png')) return {
-      identifier: path.basename(x,'.png'),
+      key: path.basename(x,'.png'),
       imageArr: false
     }
     else if (fs.statSync(recursePath).isDirectory()) return {
-      identifier: x,
+      key: x,
       imageArr: getDirContents(recursePath).filter(x => x.endsWith('.png'))
     }
-  }).filter(x => x)
+  }).filter(x => x).filter(x => {
+    if (argDevices.length) return argDevices.includes(x.key)
+    return true
+  })
   return dirArr
 }
 
 function mkDir(p) { if (!fs.existsSync(p)) fs.mkdirSync(p) }
 
 const dirArr = getPngs(dirPath)
-const lowResDirArr = getPngs(lowResDirPath).filter(x => !dirArr.map(y => y.identifier).includes(x.identifier))
+const lowResDirArr = getPngs(lowResDirPath).filter(x => !dirArr.map(y => y.key).includes(x.key))
 
 async function createImg(img, res, dir, outputFormat) {
   try {
-    const outDirArr = [imgPath, `device@${res}`, img.identifier]
+    const outDirArr = [imgPath, `device@${res}`, img.key]
     for (const o in outDirArr) mkDir(
       path.join(...
         outDirArr.filter((x, index) => {
@@ -76,12 +81,12 @@ async function createImg(img, res, dir, outputFormat) {
     }
 
     if (img.imageArr) for (const i of img.imageArr) {
-      const inputPath = path.join(dir, img.identifier, i)
+      const inputPath = path.join(dir, img.key, i)
       const outputPath = path.join(outDir, path.basename(inputPath, '.png') + '.' + outputFormat)
 
       outputSharpImage(inputPath, options, outputPath, outputFormat)
     } else {
-      const inputPath = path.join(dir, img.identifier + '.png')
+      const inputPath = path.join(dir, img.key + '.png')
       const outputPath = path.join(outDir, '0.' + outputFormat)
 
       outputSharpImage(inputPath, options, outputPath, outputFormat)
