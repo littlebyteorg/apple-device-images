@@ -21,7 +21,7 @@ jobs:
       run: |
         $diff = git diff --name-only HEAD^ HEAD
         # Check if a file under docs/ or with the .md extension has changed (added, modified, deleted)
-        $SourceDiff = $diff | Where-Object { $_ -match '^images/' -or $_ -match '^images-lowres/'  -or $_ -match 'index.js' or $_ -match '.github/workflows/publish.yml' }
+        $SourceDiff = $diff | Where-Object { $_ -match '^images/' -or $_ -match '^images-lowres/'  -or $_ -match 'index.js' -or $_ -match '.github/workflows/publish.yml' }
         $HasDiff = $SourceDiff.Length -gt 0
         # Set the output named "docs_changed"
         Write-Host "::set-output name=docs_changed::$HasDiff"
