@@ -25,6 +25,7 @@ jobs:
         $HasDiff = $SourceDiff.Length -gt 0
         # Set the output named "docs_changed"
         Write-Host "::set-output name=docs_changed::$HasDiff"
+    - run: echo ${{ docs_changed }}
 
   docs:
     runs-on: ubuntu-latest
