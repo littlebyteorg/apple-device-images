@@ -37,7 +37,7 @@ jobs:
           submodules: recursive
           
       - name: Log changed files
-        run: echo ${{ docs_changed }}
+        run: echo ${{ steps.check_file_changed.outputs.docs_changed }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
