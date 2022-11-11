@@ -2,7 +2,7 @@
 
 `https://img.appledb.dev/device@res/deviceIdentifier1,1/0.ext`
 
-Replace `res` with `128`, `256`, `512`, or `1024` to get an image which has a maximum horizontal or vertical pixel count of the respective value.  
+Replace `res` with `32`, `64`, `128`, `256`, `512`, or `1024` to get an image which has a maximum horizontal or vertical pixel count of the respective value.  
 Replace `deviceIdentifier1,1` with the device you want an image of, e.g. `iPhone14,2` for iPhone 13 Pro.  
 Replace `ext` with the file format you want. The file formats available are `png`, `webp` and `avif`.
 
