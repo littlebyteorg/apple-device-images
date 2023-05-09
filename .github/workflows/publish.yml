@@ -47,6 +47,9 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: Generate JSON output
+        run: node createJsonOutput.js
+
       - name: Generate images
         run: node index.js
 
