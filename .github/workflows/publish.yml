@@ -3,29 +3,8 @@ name: Generate images
 on:
   push:
     branches: main
-  workflow_dispatch:
 
 jobs:
-  conditional_job_check_files:
-    runs-on: ubuntu-latest
-    # Declare outputs for next jobs
-    outputs:
-      docs_changed: ${{ steps.check_file_changed.outputs.docs_changed }}
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        # Checkout as many commits as needed for the diff
-        fetch-depth: 2
-    - shell: pwsh
-      id: check_file_changed
-      run: |
-        $diff = git diff --name-only HEAD^ HEAD
-        $SourceDiff = $diff | Where-Object { $_ -match '^device/' -or $_ -match '^device-lowres/' -or $_ -match '^images/' -or $_ -match 'index.js' -or $_ -match 'createJsonOutput.js' -or $_ -match '.github/workflows/publish.yml' }
-        $HasDiff = $SourceDiff.Length -gt 0
-        # Set the output named "docs_changed"
-        Write-Host "::set-output name=docs_changed::$HasDiff"
-        echo $SourceDiff
-
   docs:
     runs-on: self-hosted
     needs: [ conditional_job_check_files ]
@@ -34,7 +13,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: recursive
+          filters: |
+            workflows:
+              - 'device/**'
+              - 'device-lowres/**'
+              - 'images/**'
+              - 'index.js'
+              - 'createJsonOutput.js'
+              - '.github/workflows/**'
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
