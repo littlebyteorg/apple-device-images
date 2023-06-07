@@ -2,8 +2,7 @@ name: Send submodule updates to parent repo
 
 on:
   push:
-    branches: 
-      - main
+    branches: main
 
 jobs:
   conditional_job_check_files:
@@ -25,30 +24,6 @@ jobs:
         $HasDiff = $SourceDiff.Length -gt 0
         # Set the output named "docs_changed"
         Write-Host "::set-output name=docs_changed::$HasDiff"
-        
-  update_dbweb:
-    runs-on: ubuntu-latest
-    needs: [ conditional_job_check_files ]
-    if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
-
-    steps:
-      - uses: actions/checkout@v2
-        with: 
-          repository: littlebyteorg/appledb-web
-          token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
-
-      - name: Pull & update submodules recursively
-        run: |
-          git submodule update --init apple-device-images
-          git submodule update --remote apple-device-images
-      - name: Commit
-        run: |
-          git config user.email "actions@github.com"
-          git config user.name "GitHub Actions - update submodules"
-          git add --all
-          git commit -m "Update apple-device-images submodule" || echo "No changes to commit"
-          git push
-
           
   update_cfw:
     runs-on: ubuntu-latest
