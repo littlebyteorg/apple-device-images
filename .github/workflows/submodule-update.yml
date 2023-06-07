@@ -3,6 +3,10 @@ name: Send submodule updates to parent repo
 on:
   push:
     branches: main
+    paths:
+      - 'device/**'
+      - 'device-lowres/**'
+      - 'images/**'
 
 jobs:
   update_cfw:
@@ -13,11 +17,6 @@ jobs:
         with: 
           repository: cfw-guide/ios.cfw.guide
           token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
-          filters: |
-            workflows:
-              - 'device/**'
-              - 'device-lowres/**'
-              - 'images/**'
 
       - name: Pull & update submodules recursively
         run: |

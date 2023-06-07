@@ -3,6 +3,13 @@ name: Generate images
 on:
   push:
     branches: main
+    paths:
+      - 'device/**'
+      - 'device-lowres/**'
+      - 'images/**'
+      - 'index.js'
+      - 'createJsonOutput.js'
+      - '.github/workflows/**'
 
 jobs:
   docs:
@@ -10,15 +17,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-        with:
-          filters: |
-            workflows:
-              - 'device/**'
-              - 'device-lowres/**'
-              - 'images/**'
-              - 'index.js'
-              - 'createJsonOutput.js'
-              - '.github/workflows/**'
 
       - name: Setup Node.js
         uses: actions/setup-node@v1
