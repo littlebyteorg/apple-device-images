@@ -20,7 +20,7 @@ jobs:
       id: check_file_changed
       run: |
         $diff = git diff --name-only HEAD^ HEAD
-        $SourceDiff = $diff | Where-Object { $_ -match '^device/' -or $_ -match '^device-lowres/' -or $_ -match '^images/' -or $_ -match 'index.js' -or $_ -match '.github/workflows/publish.yml' }
+        $SourceDiff = $diff | Where-Object { $_ -match '^device/' -or $_ -match '^device-lowres/' -or $_ -match '^images/' -or $_ -match 'index.js' -or $_ -match 'createJsonOutput.js' -or $_ -match '.github/workflows/publish.yml' }
         $HasDiff = $SourceDiff.Length -gt 0
         # Set the output named "docs_changed"
         Write-Host "::set-output name=docs_changed::$HasDiff"

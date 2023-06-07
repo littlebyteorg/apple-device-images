@@ -1,5 +1,4 @@
 const fs = require('fs')
-const { get } = require('http')
 
 function getDirContents(p) {
     return fs.readdirSync(p, function (err, files) {
@@ -11,8 +10,8 @@ function getDirContents(p) {
 
 const keyArr = new Set(...[
         [
-        ...getDirContents('images'),
-        ...getDirContents('images-lowres')
+        ...getDirContents('device'),
+        ...getDirContents('device-lowres')
     ].filter(x => x != '.DS_Store')
     .map(x => x.includes('.') ? x.split('.').slice(0,-1).join() : x) // Remove file extension
 ])
@@ -24,12 +23,12 @@ for (const key of keyArr) {
     let pngExists = false
     let folderExists = false
 
-    if (fs.existsSync(`images-lowres/${key}.png`))  lowresExists    = true
-    if (fs.existsSync(`images/${key}.png`))         pngExists       = true
-    if (fs.existsSync(`images/${key}/0.png`))       folderExists    = true
+    if (fs.existsSync(`device-lowres/${key}.png`))  lowresExists    = true
+    if (fs.existsSync(`device/${key}.png`))         pngExists       = true
+    if (fs.existsSync(`device/${key}/0.png`))       folderExists    = true
     
     if (folderExists) {
-        const folderContents = getDirContents(`images/${key}`)
+        const folderContents = getDirContents(`device/${key}`)
         let images = []
 
         for (let i = 0;; i++) {
