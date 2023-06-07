@@ -43,7 +43,7 @@ function getPngs(p, dirPath) {
 function mkDir(p) { if (!fs.existsSync(p)) fs.mkdirSync(p) }
 
 const deviceDirArr = getPngs(deviceDirPath, deviceDirPath)
-const lowResDirArr = getPngs(lowResDirPath).filter(x => !deviceDirArr.map(y => y.key).includes(x.key), deviceDirPath)
+const lowResDirArr = getPngs(lowResDirPath, deviceDirPath).filter(x => !deviceDirArr.map(y => y.key).includes(x.key))
 const imageDirArr = getPngs(imageDirPath, imageDirPath)
 
 async function createImg(img, res, dir, outputFormat, outputDir) {
