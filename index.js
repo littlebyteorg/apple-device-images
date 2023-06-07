@@ -20,7 +20,7 @@ function getDirContents(p) {
   })
 }
 
-function getPngs(p) {
+function getPngs(p, dirPath) {
   let key = undefined
   const dirArr = getDirContents(p).map(x => {
     const recursePath = path.join(dirPath, x)
@@ -42,9 +42,9 @@ function getPngs(p) {
 
 function mkDir(p) { if (!fs.existsSync(p)) fs.mkdirSync(p) }
 
-const deviceDirArr = getPngs(deviceDirPath)
-const lowResDirArr = getPngs(lowResDirPath).filter(x => !deviceDirArr.map(y => y.key).includes(x.key))
-const imageDirArr = getPngs(imageDirPath)
+const deviceDirArr = getPngs(deviceDirPath, deviceDirPath)
+const lowResDirArr = getPngs(lowResDirPath).filter(x => !deviceDirArr.map(y => y.key).includes(x.key), deviceDirPath)
+const imageDirArr = getPngs(imageDirPath, imageDirPath)
 
 async function createImg(img, res, dir, outputFormat, outputDir) {
   try {
@@ -100,7 +100,7 @@ async function createImg(img, res, dir, outputFormat, outputDir) {
 }
 
 for (const res of resizeArr) for (const imgType of ['png','webp','avif']) {
-  for (const img of deviceDirArr) createImg(img, res, dirPath,       imgType, 'device')
+  for (const img of deviceDirArr) createImg(img, res, deviceDirPath, imgType, 'device')
   for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType, 'device')
   for (const img of imageDirArr)  createImg(img, res, imageDirPath,  imgType, 'image')
 }
