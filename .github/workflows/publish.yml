@@ -7,8 +7,6 @@ on:
 jobs:
   docs:
     runs-on: self-hosted
-    needs: [ conditional_job_check_files ]
-    if: needs.conditional_job_check_files.outputs.docs_changed == 'True'
 
     steps:
       - uses: actions/checkout@v2
