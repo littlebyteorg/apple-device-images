@@ -6,8 +6,9 @@ const { create } = require('domain')
 const resizeArr = [32,64,128,256,512,1024,'main','preview']
 
 const imgPath = path.resolve(__dirname, 'out')
-const dirPath = path.resolve(__dirname, "images")
-const lowResDirPath = path.resolve(__dirname, "images-lowres")
+const deviceDirPath = path.resolve(__dirname, "device")
+const lowResDirPath = path.resolve(__dirname, "device-lowres")
+const imageDirPath = path.resolve(__dirname, "image")
 
 const argDevices = process.argv.slice(2)
 
@@ -41,12 +42,13 @@ function getPngs(p) {
 
 function mkDir(p) { if (!fs.existsSync(p)) fs.mkdirSync(p) }
 
-const dirArr = getPngs(dirPath)
-const lowResDirArr = getPngs(lowResDirPath).filter(x => !dirArr.map(y => y.key).includes(x.key))
+const deviceDirArr = getPngs(deviceDirPath)
+const lowResDirArr = getPngs(lowResDirPath).filter(x => !deviceDirArr.map(y => y.key).includes(x.key))
+const imageDirArr = getPngs(imageDirPath)
 
-async function createImg(img, res, dir, outputFormat) {
+async function createImg(img, res, dir, outputFormat, outputDir) {
   try {
-    const outDirArr = [imgPath, `device@${res}`, img.key]
+    const outDirArr = [imgPath, `${outputDir}@${res}`, img.key]
     for (const o in outDirArr) mkDir(
       path.join(...
         outDirArr.filter((x, index) => {
@@ -98,6 +100,7 @@ async function createImg(img, res, dir, outputFormat) {
 }
 
 for (const res of resizeArr) for (const imgType of ['png','webp','avif']) {
-  for (const img of dirArr) createImg(img, res, dirPath, imgType)
-  for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType)
+  for (const img of deviceDirArr) createImg(img, res, dirPath,       imgType, 'device')
+  for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType, 'device')
+  for (const img of imageDirArr)  createImg(img, res, imageDirPath,  imgType, 'image')
 }

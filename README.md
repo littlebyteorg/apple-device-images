@@ -1,15 +1,13 @@
 # apple-device-images
 
-`https://img.appledb.dev/device@res/deviceIdentifier1,1/0.ext`
+`https://img.appledb.dev/device@res/deviceKey1,1/0.ext`
 
 Replace `res` with `32`, `64`, `128`, `256`, `512`, or `1024` to get an image which has a maximum horizontal or vertical pixel count of the respective value.  
-Replace `deviceIdentifier1,1` with the device you want an image of, e.g. `iPhone14,2` for iPhone 13 Pro.  
+Replace `deviceKey1,1` with the device you want an image of, e.g. `iPhone14,2` for iPhone 13 Pro. While the deviceKey is often identical to the device identifier, it is not always. Check [appledb](https://github.com/littlebyteorg/appledb) for the correct key.  
 Replace `ext` with the file format you want. The file formats available are `png`, `webp` and `avif`.
 
 To get an image with dark mode, append `_dark` to the filename: `/0_dark.png`  
 To get a different colour, increment the number of the filename: `/1.png`
-
-In the future I will publish a JSON with the site which lists which devices have dark mode, and how many colours each device has. For now you will just have to look.
 
 ## Example images
 
