@@ -8,7 +8,7 @@ const resizeArr = [32,64,128,256,512,1024,'main','preview']
 const imgPath = path.resolve(__dirname, 'out')
 const deviceDirPath = path.resolve(__dirname, "device")
 const lowResDirPath = path.resolve(__dirname, "device-lowres")
-const imageDirPath = path.resolve(__dirname, "image")
+const imageDirPath = path.resolve(__dirname, "images")
 
 const argDevices = process.argv.slice(2)
 
@@ -102,5 +102,5 @@ async function createImg(img, res, dir, outputFormat, outputDir) {
 for (const res of resizeArr) for (const imgType of ['png','webp','avif']) {
   for (const img of deviceDirArr) createImg(img, res, deviceDirPath, imgType, 'device')
   for (const img of lowResDirArr) createImg(img, res, lowResDirPath, imgType, 'device')
-  for (const img of imageDirArr)  createImg(img, res, imageDirPath,  imgType, 'image')
+  for (const img of imageDirArr)  createImg(img, res, imageDirPath,  imgType, 'images')
 }
