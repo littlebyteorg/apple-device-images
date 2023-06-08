@@ -10,4 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger
-        run: curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.PRIVATE_TOKEN_GITHUB }}" "https://api.github.com/repos/littlebyteorg/appledb-web/actions/workflows/19262583/dispatches" -d '{"ref":"main"}'
+        run: |
+          curl -L \
+          -X POST -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer ${{ secrets.PRIVATE_TOKEN_GITHUB }}" \
+          https://api.github.com/repos/littlebyteorg/appledb-web/actions/workflows/19262583/dispatches \
+          -d '{"ref":"main"}'
