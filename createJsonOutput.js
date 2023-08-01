@@ -13,7 +13,7 @@ const keyArr = new Set(...[
         ...getDirContents('device'),
         ...getDirContents('device-lowres')
     ].filter(x => x != '.DS_Store')
-    .map(x => x.includes('.') ? x.split('.').slice(0,-1).join() : x) // Remove file extension
+    .map(x => x.includes('.') ? x.split('.').slice(0,-1).join('.') : x) // Remove file extension
 ])
 
 let retArr = []
