@@ -1,7 +1,7 @@
 name: Trigger repository workflows
 
 on:
-  respository_dispatch:
+  repository_dispatch:
   page_build:
   workflow_dispatch:
 
@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger
+        if: github.event.event_type == 'Update dependent repositories' || github.event_name != 'repository_dispatch'
         run: |
           curl -L \
           -X POST -H "Accept: application/vnd.github+json" \
@@ -21,6 +22,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger
+        if: github.event.event_type == 'Update dependent repositories' || github.event_name != 'repository_dispatch'
         run: |
           curl -L \
           -X POST -H "Accept: application/vnd.github+json" \
