@@ -1,17 +1,9 @@
-const fs = require('fs')
-
-function getDirContents(p) {
-    return fs.readdirSync(p, function (err, files) {
-        var retArr = []
-        files.forEach(f => retArr.push(f))
-        return retArr
-    })
-}
+import { readdirSync, existsSync, mkdirSync, writeFileSync } from 'fs'
 
 const keyArr = new Set(...[
-        [
-        ...getDirContents('device'),
-        ...getDirContents('device-lowres')
+    [
+        ...readdirSync('device'),
+        ...readdirSync('device-lowres')
     ].filter(x => x != '.DS_Store')
     .map(x => x.includes('.') ? x.split('.').slice(0,-1).join('.') : x) // Remove file extension
 ])
@@ -23,12 +15,12 @@ for (const key of keyArr) {
     let pngExists = false
     let folderExists = false
 
-    if (fs.existsSync(`device-lowres/${key}.png`))  lowresExists    = true
-    if (fs.existsSync(`device/${key}.png`))         pngExists       = true
-    if (fs.existsSync(`device/${key}/0.png`))       folderExists    = true
+    if (existsSync(`device-lowres/${key}.png`))  lowresExists    = true
+    if (existsSync(`device/${key}.png`))         pngExists       = true
+    if (existsSync(`device/${key}/0.png`))       folderExists    = true
     
     if (folderExists) {
-        const folderContents = getDirContents(`device/${key}`)
+        const folderContents = readdirSync(`device/${key}`)
         let images = []
 
         for (let i = 0;; i++) {
@@ -42,7 +34,7 @@ for (const key of keyArr) {
         retArr.push({
             key: key,
             count: images.length,
-            dark: images.map(x => x.dark).filter(x => x).length > 0,
+            dark: images.filter(x => x.dark).length > 0,
             index: images
         })
 
@@ -59,12 +51,8 @@ for (const key of keyArr) {
                 dark: false
             }]
         })
-
-        continue
     }
 }
 
-if (!fs.existsSync('out')) fs.mkdirSync('out')
-fs.writeFile('out/main.json', JSON.stringify(retArr), (err) => {
-    if (err) console.log(err)
-})
+if (!existsSync('out')) mkdirSync('out')
+writeFileSync('out/main.json', JSON.stringify(retArr))

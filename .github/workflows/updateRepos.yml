@@ -1,6 +1,7 @@
 name: Trigger repository workflows
 
 on:
+  respository_dispatch:
   page_build:
   workflow_dispatch:
 
