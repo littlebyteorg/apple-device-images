@@ -5,8 +5,7 @@
   "repository": "https://github.com/emiyl/apple-device-images",
   "author": "emiyl <me@emiyl.com>",
   "license": "MIT",
-  "type": "module",
   "dependencies": {
-    "sharp": "^0.33.5"
+    "sharp": "^0.30.7"
   }
 }

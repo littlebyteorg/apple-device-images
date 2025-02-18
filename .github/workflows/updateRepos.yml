@@ -2,6 +2,8 @@ name: Trigger repository workflows
 
 on:
   repository_dispatch:
+    types:
+      - 'update-repos'
   workflow_dispatch:
 
 jobs:
@@ -9,22 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger
-        if: github.event.event_type == 'Update dependent repositories' || github.event_name != 'repository_dispatch'
         run: |
           curl -L \
           -X POST -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.PRIVATE_TOKEN_GITHUB }}" \
-          https://api.github.com/repos/littlebyteorg/appledb-web/actions/workflows/19262583/dispatches \
-          -d '{"ref":"main"}'
+          https://api.github.com/repos/littlebyteorg/appledb-web/dispatches \
+          -d '{"event_type": "update-repo", "client_payload": {}}'
 
   ioscfw:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger
-        if: github.event.event_type == 'Update dependent repositories' || github.event_name != 'repository_dispatch'
         run: |
           curl -L \
           -X POST -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.PRIVATE_TOKEN_GITHUB }}" \
-          https://api.github.com/repos/cfw-guide/ios.cfw.guide/actions/workflows/14511438/dispatches \
-          -d '{"ref":"main"}'
+          https://api.github.com/repos/cfw-guide/ios.cfw.guide/dispatches \
+          -d '{"event_type": "update-repo", "client_payload": {}}'

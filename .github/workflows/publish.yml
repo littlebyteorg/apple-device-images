@@ -16,12 +16,12 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v1
         with:
-          node-version: '22'
+          node-version: '16'
 
       - name: Install Yarn
         run: npm install --global yarn
@@ -55,4 +55,4 @@ jobs:
           -X POST -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{ secrets.PRIVATE_TOKEN_GITHUB }}" \
           https://api.github.com/repos/littlebyteorg/apple-device-images/dispatches \
-          -d '{"event_type": "Update dependent repositories", "client_payload": {}}'
+          -d '{"event_type": "update-repos", "client_payload": {}}'
