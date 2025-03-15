@@ -1,4 +1,4 @@
-import { readdirSync, existsSync, mkdirSync, writeFileSync } from 'fs'
+import { readdirSync, existsSync, mkdirSync, writeFileSync, statSync } from 'fs'
 
 const keyArr = new Set(...[
     [
@@ -11,24 +11,22 @@ const keyArr = new Set(...[
 let retArr = []
 
 for (const key of keyArr) {
-    let lowresExists = false
-    let pngExists = false
-    let folderExists = false
-
-    if (existsSync(`device-lowres/${key}.png`))  lowresExists    = true
-    if (existsSync(`device/${key}.png`))         pngExists       = true
-    if (existsSync(`device/${key}/0.png`))       folderExists    = true
+    let lowresExists = existsSync(`device-lowres/${key}.png`)
+    let pngExists = existsSync(`device/${key}.png`)
+    let folderExists = existsSync(`device/${key}/`) && statSync(`device/${key}/`).isDirectory()
     
     if (folderExists) {
         const folderContents = readdirSync(`device/${key}`)
         let images = []
 
-        for (let i = 0;; i++) {
-            if (folderContents.includes(`${i}.png`)) images.push({
-                id: i,
-                dark: folderContents.includes(`${i}_dark.png`)
+        for (const folderItem of folderContents) {
+            if (folderItem.endsWith("_dark.png")) continue
+            if (!folderItem.endsWith(".png")) continue
+            const baseName = folderItem.replace(".png", "")
+            images.push({
+                id: baseName,
+                dark: folderContents.includes(`${baseName}_dark.png`)
             })
-            else break
         }
 
         retArr.push({
@@ -37,11 +35,9 @@ for (const key of keyArr) {
             dark: images.filter(x => x.dark).length > 0,
             index: images
         })
-
-        continue
     }
 
-    if (pngExists || lowresExists) {
+    else if (pngExists || lowresExists) {
         retArr.push({
             key: key,
             count: 1,
