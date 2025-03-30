@@ -17,6 +17,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        run: |
+          git config --global http.postBuffer 2048M
+          git config --global ssh.postBuffer 2048M
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -42,7 +45,7 @@ jobs:
         run: echo '' >> out/.nojekyll
 
       - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: crazy-max/ghaction-github-pages@v4
         with:
           target_branch: gh-pages
           build_dir: out
