@@ -18,11 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Adjust git buffers
-        run: |
-          git config --global http.postBuffer 2048M
-          git config --global ssh.postBuffer 2048M
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -46,6 +41,10 @@ jobs:
       - name: No jekyll
         run: echo '' >> out/.nojekyll
 
+      - name: Git debugging
+        run: |
+          git config --global http.version HTTP/1.1
+
       - name: Deploy to GitHub Pages
         uses: crazy-max/ghaction-github-pages@v4
         with:
@@ -53,6 +52,10 @@ jobs:
           build_dir: out
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Git debugging
+        run: |
+          git config --global http.version HTTP/2.0
 
       - name: Update Repos
         run: |
