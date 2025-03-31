@@ -2,7 +2,8 @@ import { resolve, join, basename } from 'path'
 import { readdirSync, statSync, mkdirSync } from 'fs'
 import sharp from "sharp"
 
-const resizeArr = [32,64,128,256,512,1024,'main','preview']
+// const resizeArr = [32,64,128,256,512,1024,'main','preview']
+const resizeArr = [64,256,'main','preview']
 
 const __dirname = import.meta.dirname
 

@@ -18,20 +18,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Git debugging
-        run: |
-          git config --global http.version HTTP/1.1
-          git config --global http.postBuffer 2048M
-          git config --global ssh.postBuffer 2048M
-          git config --global pack.window 1
-          git config --global core.compression 0
-          git config --global http.maxRequestBuffer 100M
-          git config --global core.packedGitLimit 512m
-          git config --global core.packedGitWindowSize 512m
-          git config --global pack.deltaCacheSize 2047m
-          git config --global pack.packSizeLimit 2047m
-          git config --global pack.windowMemory 2047m
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -62,10 +48,6 @@ jobs:
           build_dir: out
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Git debugging
-        run: |
-          git config --global http.version HTTP/2.0
 
       - name: Update Repos
         run: |
