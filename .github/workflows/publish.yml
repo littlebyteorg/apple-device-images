@@ -16,6 +16,8 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - uses: actions/checkout@v4
+
       - name: Git debugging
         run: |
           git config --global http.version HTTP/1.1
@@ -24,8 +26,11 @@ jobs:
           git config --global pack.window 1
           git config --global core.compression 0
           git config --global http.maxRequestBuffer 100M
-
-      - uses: actions/checkout@v4
+          git config --global core.packedGitLimit 512m
+          git config --global core.packedGitWindowSize 512m
+          git config --global pack.deltaCacheSize 2047m
+          git config --global pack.packSizeLimit 2047m
+          git config --global pack.windowMemory 2047m
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
