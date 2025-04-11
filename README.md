@@ -7,15 +7,15 @@ Replace `deviceKey1,1` with the device you want an image of, e.g. `iPhone14,2` f
 Replace `ext` with the file format you want. The file formats available are `png`, `webp` and `avif`.
 
 To get an image with dark mode, append `_dark` to the filename: `/Space Gray_dark.png`  
-To get a different colour, use the American spelling of the colour name: `/Space Gray.png`; if it's not a device, use an index number (starting at 0).
+To get a different color, use the American spelling of the colour name: `/Space Gray.png`; if it's not a device, use an index number (starting at 0).
 
 ## Example images
 
 `https://img.appledb.dev/device@256/MacBookAir10,1/Space Gray.png`
 
-256x147, Space Grey, light mode
+256x147, Space Gray, light mode
 
-![Medium resolution image of a Space Grey MacBook Air, Late 2020](https://img.appledb.dev/device@256/MacBookAir10,1/Space Gray.png)
+![Medium resolution image of a Space Grey MacBook Air, Late 2020](https://img.appledb.dev/device@256/MacBookAir10,1/Space%20Gray.png)
 
 ---
 
@@ -23,4 +23,4 @@ To get a different colour, use the American spelling of the colour name: `/Space
 
 127x256, Sierra Blue, dark mode
 
-![Lower resolution image of a Sierra iPhone 13 Pro in dark mode](https://img.appledb.dev/device@256/iPhone14,2/Sierra Blue_dark.png)
+![Lower resolution image of a Sierra iPhone 13 Pro in dark mode](https://img.appledb.dev/device@256/iPhone14,2/Sierra%20Blue_dark.png)
