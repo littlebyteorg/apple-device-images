@@ -5,7 +5,7 @@ const keyArr = new Set(...[
         ...readdirSync('device'),
         ...readdirSync('device-lowres')
     ].filter(x => x != '.DS_Store')
-    .map(x => x.includes('.') ? x.split('.').slice(0,-1).join('.') : x) // Remove file extension
+    .map(x => x.replace(".png", "")) // Remove file extension
 ])
 
 let retArr = []
