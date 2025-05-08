@@ -32,6 +32,7 @@ for (const key of keyArr) {
         retArr.push({
             key: key,
             count: images.length,
+            dark: images.filter(x => x.dark).length > 0,
             index: images
         })
     }
@@ -40,6 +41,7 @@ for (const key of keyArr) {
         retArr.push({
             key: key,
             count: 1,
+            dark: false,
             index: [{
                 id: 0,
                 dark: false
