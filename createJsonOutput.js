@@ -13,7 +13,6 @@ const createJson = function(folderName) {
     let retArr = []
 
     for (const key of keyArr) {
-        if (key.endsWith("_dark")) continue
         let lowresExists = existsSync(`${folderName}-lowres/${key}.png`)
         let pngExists = existsSync(`${folderName}/${key}.png`)
         let folderExists = existsSync(`${folderName}/${key}/`) && statSync(`${folderName}/${key}/`).isDirectory()
@@ -44,10 +43,10 @@ const createJson = function(folderName) {
             retArr.push({
                 key: key,
                 count: 1,
-                dark: existsSync(`${folderName}/${key}_dark.png`) || existsSync(`${folderName}-lowres/${key}_dark.png`),
+                dark: false,
                 index: [{
                     id: 0,
-                    dark: existsSync(`${folderName}/${key}_dark.png`) || existsSync(`${folderName}-lowres/${key}_dark.png`)
+                    dark: false
                 }]
             })
         }
