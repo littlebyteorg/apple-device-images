@@ -23,11 +23,6 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Setup ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2' # Not needed with a .ruby-version, .tool-versions or mise.toml
-
       - name: Install Yarn
         run: npm install --global yarn
 
@@ -50,12 +45,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
-      - name: Wait for GitHub Pages
-        uses: lewagon/wait-on-check-action@v1.4.1
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          ref: gh-pages
-          running-workflow-name: pages-build-deployment
+      # - name: Wait for GitHub Pages
+      #   uses: lewagon/wait-on-check-action@v1.4.1
+      #   with:
+      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
+      #     ref: gh-pages
+      #     running-workflow-name: pages-build-deployment
 
       - name: Update Repos
         run: |
