@@ -22,7 +22,9 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '24'
-          cache: 'yarn'
+
+      - name: Install Yarn
+        run: npm install --global yarn
 
       - name: Install dependencies
         run: yarn
