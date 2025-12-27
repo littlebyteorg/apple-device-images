@@ -44,7 +44,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
       - name: Wait for GitHub Pages
-        uses: lewagon/wait-on-check-action@v1
+        uses: lewagon/wait-on-check-action@v1.4.1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           ref: gh-pages
