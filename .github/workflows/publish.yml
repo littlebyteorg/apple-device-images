@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # Not needed with a .ruby-version, .tool-versions or mise.toml
+
       - name: Install Yarn
         run: npm install --global yarn
 
