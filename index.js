@@ -14,9 +14,9 @@ const imageDirPath = resolve(__dirname, "images")
 
 const argDevices = process.argv.slice(2)
 
-function getPngs(p, dirPath) {
+function getPngs(p) {
   return readdirSync(p).map(x => {
-    const recursePath = join(dirPath, x)
+    const recursePath = join(p, x)
     
     if (x.endsWith('.png')) return {
       key: basename(x,'.png'),
@@ -33,9 +33,9 @@ function getPngs(p, dirPath) {
   })
 }
 
-const deviceDirArr = getPngs(deviceDirPath, deviceDirPath)
-const lowResDirArr = getPngs(lowResDirPath, deviceDirPath).filter(x => !deviceDirArr.map(y => y.key).includes(x.key))
-const imageDirArr = getPngs(imageDirPath, imageDirPath)
+const deviceDirArr = getPngs(deviceDirPath)
+const lowResDirArr = getPngs(lowResDirPath).filter(x => !deviceDirArr.map(y => y.key).includes(x.key))
+const imageDirArr = getPngs(imageDirPath)
 
 async function createImg(img, res, dir, outputFormat, outputDir) {
   try {
