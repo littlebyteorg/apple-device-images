@@ -19,7 +19,7 @@ const createJson = function(folderName) {
         let lowresFolderExists = existsSync(`${folderName}-lowres/${key}/`) && statSync(`${folderName}-lowres/${key}/`).isDirectory()
         
         if (folderExists || lowresFolderExists) {
-            const folderContents = readdirSync(`${folderName}/${key}`)
+            const folderContents = readdirSync(folderExists ? `${folderName}/${key}` : `${folderName}-lowres/${key}`)
             let images = []
 
             for (const folderItem of folderContents) {
